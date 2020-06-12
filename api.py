@@ -1,21 +1,7 @@
+import greetings
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
-
-greetings = [
-    {'lang': 'en', 'phrase': 'Hello'},
-    {'lang': 'es', 'phrase': 'Hola'},
-    {'lang': 'gr', 'phrase': 'Guten tag'},
-    {'lang': 'fr', 'phrase': 'Bonne journée'}
-]
-userDefaults = [
-    {'username': 'Jason', 'lang': 'en'},
-    {'username': 'Jose', 'lang': 'es'},
-    {'username': 'Hans', 'lang': 'gr'},
-    {'username': 'Christian', 'lang': 'fr'},
-    {'username': 'default', 'lang': 'en'}
-]
-
 
 @app.route('/', methods=['GET'])
 def greeting():
@@ -29,9 +15,9 @@ def get_greeting():
     if username is None:
         username = 'default'
 
-    userdefault = get_default_for_username(username)
+    userdefault = greetings.get_default_for_username(username)
     lang = userdefault['lang']
-    greeting = get_greeting_for_lang(lang)
+    greeting = greetings.get_greeting_for_lang(lang)
 
     return greeting['phrase'] + " " + username
 
@@ -49,20 +35,6 @@ def get_default_greeting_for_user():
     if username is None:
         username = 'default'
 
-    return jsonify(get_default_for_username(username))
-
-
-def get_default_for_username(username):
-    for userDefault in userDefaults:
-        if userDefault['username'] == username:
-            return userDefault
-
-def get_greeting_for_lang(lang):
-    for greeting in greetings:
-        if greeting['lang'] == lang:
-            return greeting
-
-
-
+    return jsonify(greetings.get_default_for_username(username))
 
 app.run(port='5002')
