@@ -1,26 +1,14 @@
-#greetings = [
-#    {'lang': 'en', 'phrase': 'Hello'},
-#    {'lang': 'es', 'phrase': 'Hola'},
-#    {'lang': 'gr', 'phrase': 'Guten tag'},
-#    {'lang': 'fr', 'phrase': 'Bonne journee'}
-#]
-userFavorites = [
-    {'username': 'Jason', 'fav': 'vanilla'},
-    {'username': 'John', 'fav': 'rocky road'},
-    {'username': 'Paul', 'fav': 'strawberry'},
-    {'username': 'Ringo', 'fav': 'vanilla'},
-    {'username': 'Default', 'fav': 'chocolate'}
-]
-
+import persistence
 
 def get_favorite_for_username(username):
-    for userFavorite in userFavorites:
-        if userFavorite['username'].lower() == username.lower():
-            return userFavorite
+    return persistence.get_favorite_for_user(username)
 
-#def get_greeting_for_lang(lang):
-#    for greeting in greetings:
-#        if greeting['lang'] == lang:
-#            return greeting
+def set_favorite_for_username(username, favorite):
+    # TODO get username
+    # if null
+    return persistence.set_favorite_for_user(username, favorite)
 
-# TODO implement get / put to db
+    # if no null update
+
+def get_all_favorites():
+    return persistence.get_all_favorites()

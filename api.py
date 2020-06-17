@@ -5,7 +5,8 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def greeting():
-    return "Welcome to the favorite ice cream tracker 2000!"
+    print('Welcome')
+    return "Welcome to the favorite ice cream tracker 2000! \n" + icfavorites.get_all_favorites().__str__()
 
 # GET /favorite?username=Paul HTTP/1.1
 # Host: 0.0.0.0:5002
@@ -15,21 +16,23 @@ def get_favorite():
     if username is None:
         username = 'Default'
 
-    userFavorite = icfavorites.get_favorite_for_username(username)
-    if userFavorite is None:
+    print('Getting favorite for: ' + username)
+    userfavorite = icfavorites.get_favorite_for_username(username)
+    if userfavorite is None:
         return "User: " + username + " is not on record."
 
-    favorite = userFavorite['fav']
+    favorite = userfavorite['favorite']
 
     return favorite + " is " + username + "'s favorite"
 
-# POST /favorite?username=Paul&fave=Chocolate HTTP/1.1
+# POST /favorite?username=Paul&favorite=Chocolate HTTP/1.1
 # Host: 0.0.0.0:5002
 @app.route('/favorite', methods=['POST'])
 def set_favorite_for_user():
     username = request.args.get('username')
-    fave = request.args.get('fave')
-    return 'implement POST: ' + username + "/" + fave
+    favorite = request.args.get('favorite')
+    icfavorites.set_favorite_for_username(username, favorite)
 
+    return 'complete'
 
 app.run(port='5002')
