@@ -1,40 +1,35 @@
-import greetings
+import icfavorites
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def greeting():
-    return jsonify({'greeting': {'phrase': 'Hello guest', 'language': 'en'}})
+    return "Welcome to the favorite ice cream tracker 2000!"
 
-#GET /greeting?username=Christian HTTP/1.1
-#Host: 127.0.0.1:5002
-@app.route('/greeting', methods=['GET'])
-def get_greeting():
+# GET /favorite?username=Paul HTTP/1.1
+# Host: 0.0.0.0:5002
+@app.route('/favorite', methods=['GET'])
+def get_favorite():
     username = request.args.get('username')
     if username is None:
-        username = 'default'
+        username = 'Default'
 
-    userdefault = greetings.get_default_for_username(username)
-    lang = userdefault['lang']
-    greeting = greetings.get_greeting_for_lang(lang)
+    userFavorite = icfavorites.get_favorite_for_username(username)
+    if userFavorite is None:
+        return "User: " + username + " is not on record."
 
-    return greeting['phrase'] + " " + username
+    favorite = userFavorite['fav']
 
-@app.route('/userdefaultgreeting', methods=['POST'])
-def set_default_greeting_for_user():
+    return favorite + " is " + username + "'s favorite"
+
+# POST /favorite?username=Paul&fave=Chocolate HTTP/1.1
+# Host: 0.0.0.0:5002
+@app.route('/favorite', methods=['POST'])
+def set_favorite_for_user():
     username = request.args.get('username')
-    lang = request.args.get('lang')
-    return 'implement POST'
+    fave = request.args.get('fave')
+    return 'implement POST: ' + username + "/" + fave
 
-#GET /userdefaultgreeting?username=Hans HTTP/1.1
-#Host: 127.0.0.1:5002
-@app.route('/userdefaultgreeting', methods=['GET'])
-def get_default_greeting_for_user():
-    username = request.args.get('username')
-    if username is None:
-        username = 'default'
-
-    return jsonify(greetings.get_default_for_username(username))
 
 app.run(port='5002')
