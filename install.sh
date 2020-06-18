@@ -1,1 +1,4 @@
-touch /tmp/test.out
+#!/bin/sh
+apt-get update
+apt-get install build-essential
+
