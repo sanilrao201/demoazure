@@ -3,10 +3,11 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def greeting():
     print('Welcome')
-    return "Welcome to the favorite ice cream tracker 2000! \n" + icfavorites.get_all_favorites().__str__()
+    #return "Welcome to the favorite ice cream tracker 2000! \n" + icfavorites.get_all_favorites().__str__()
+    return "Welcome to the favorite ice cream tracker 2000! \n"
 
 # GET /favorite?username=Paul HTTP/1.1
 # Host: 0.0.0.0:5002
