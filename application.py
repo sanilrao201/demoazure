@@ -35,4 +35,5 @@ def set_favorite_for_user():
 
     return 'complete'
 
-app.run(port='80')
+#app.run(port='5000')
+app.run()
