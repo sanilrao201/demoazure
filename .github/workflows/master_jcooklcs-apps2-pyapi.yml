@@ -32,3 +32,8 @@ jobs:
         app-name: 'jcooklcs-apps2-pyapi'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_c00695f8f39c47d09d150888c566bdb1 }}
+
+    - name: Install dependencies
+      run: |
+        apt-get update -qq
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
