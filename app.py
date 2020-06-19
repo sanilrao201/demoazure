@@ -1,5 +1,4 @@
 import icfavorites
-import os
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -34,5 +33,3 @@ def set_favorite_for_user():
     icfavorites.set_favorite_for_username(username, favorite)
 
     return 'complete'
-
-#app.run(port='80')
