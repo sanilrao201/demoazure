@@ -1,9 +1,20 @@
 import pyodbc
+import os
 
-server = 'tcp:jcooklcs-sqlserver1.database.windows.net,1433'
-database = 'jcookLCS-sqldb1'
-dbusername = 'sqladmin'
-dbpassword = 'Pa$$w0rd!'
+sqlstr = os.environ.get('SQLCONNSTR_icecreamdbconnstr', "SQLCONNSTR_icecreamdbconnstr variable does not exist")
+sqlstrarr = sqlstr.split(";")
+
+sqlstrmap = {}
+for string in sqlstrarr:
+    if string is not '':
+        key = string.split('=')[0]
+        val = string.split('=')[1]
+        sqlstrmap[key] = val
+
+server = sqlstrmap['Server']
+database = sqlstrmap['InitialCatalog']
+dbusername = sqlstrmap['UserID']
+dbpassword = sqlstrmap['Password']
 cnxn = pyodbc.connect(
     'DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + server + ';DATABASE=' + database + ';UID=' + dbusername
     + ';PWD=' + dbpassword)

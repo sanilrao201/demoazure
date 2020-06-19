@@ -6,10 +6,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def greeting():
-    print('Welcome')
-
-    sqlstr = os.environ.get('SQLCONNSTR_icecreamdbconnstr', "SQLCONNSTR_icecreamdbconnstr variable does not exist")
-    return "Welcome to the favorite ice cream tracker 2000! <br/>" + sqlstr
+    return "Welcome to the favorite ice cream tracker 2000! <br/>"
 
 # GET /favorite?username=Paul HTTP/1.1
 # Host: 0.0.0.0:5002
