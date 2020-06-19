@@ -31,4 +31,4 @@ jobs:
       with:
         app-name: 'jcooklcs-apps1'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_cf26c2d1ccf2446392a285be1e55292f }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_85a7e780475d486d961c0ea9d4c2dbae }}
