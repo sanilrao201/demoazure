@@ -1,4 +1,5 @@
 import icfavorites
+import os
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -6,8 +7,9 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def greeting():
     print('Welcome')
-    #return "Welcome to the favorite ice cream tracker 2000! \n" + icfavorites.get_all_favorites().__str__()
-    return "Welcome to the favorite ice cream tracker 2000! \n"
+
+    sqlstr = os.environ.get('SQLCONNSTR_icecreamdbconnstr', "SQLCONNSTR_icecreamdbconnstr variable does not exist")
+    return "Welcome to the favorite ice cream tracker 2000! <br/>" + sqlstr
 
 # GET /favorite?username=Paul HTTP/1.1
 # Host: 0.0.0.0:5002
