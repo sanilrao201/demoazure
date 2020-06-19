@@ -12,13 +12,15 @@ for string in sqlstrarr:
         sqlstrmap[key] = val
 
 server = sqlstrmap['Server']
-database = sqlstrmap['InitialCatalog']
-dbusername = sqlstrmap['UserID']
+database = sqlstrmap['Initial Catalog']
+dbusername = sqlstrmap['User ID']
 dbpassword = sqlstrmap['Password']
 cnxn = pyodbc.connect(
     'DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + server + ';DATABASE=' + database + ';UID=' + dbusername
     + ';PWD=' + dbpassword)
+#cnxn = pyodbc.connect(sqlstr)
 cursor = cnxn.cursor()
+
 
 def get_favorite_for_user(username):
     qstring = 'SELECT * FROM UserFavorites where username = \'' + username + '\''
